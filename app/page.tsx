@@ -128,336 +128,355 @@ function KPICardTile({ card }: { card: KPICardData }) {
       className="rounded-xl border border-[#e2e8f0] bg-white p-6 flex flex-col gap-3"
       style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.04), 0 4px 12px -4px rgba(0,0,0,0.08)' }}
     >
-      <div className="flex items-start justify-between">
-        <p className="text-xs font-semibold tracking-widest text-[#45464d] uppercase">
-          {card.title}
-        </p>
-        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#eff4ff] text-[#2170e4]">
+      <div className="flex items-center justify-between">
+        <span className="text-sm font-medium text-[#64748b]">{card.title}</span>
+        <span className="w-9 h-9 rounded-lg bg-[#eff6ff] flex items-center justify-center text-[#2563eb]">
           {ICON_MAP[card.icon] ?? <Activity className="h-5 w-5" />}
         </span>
       </div>
-      <p
-        className="text-4xl font-bold tracking-tight text-[#0b1c30]"
-        style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-      >
-        {card.value}
-      </p>
-      <div className="flex items-center gap-2">
+      <div className="flex items-end justify-between gap-2">
+        <span className="text-2xl font-bold text-[#1e293b] font-jakarta tracking-tight">
+          {card.value}
+        </span>
         <span
-          className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold ${
-            isUp ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-600'
+          className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full ${
+            isUp
+              ? 'bg-emerald-50 text-emerald-700'
+              : 'bg-red-50 text-red-600'
           }`}
         >
           {isUp ? (
-            <ArrowUpRight className="h-3 w-3" />
+            <ArrowUpRight className="w-3 h-3" />
           ) : (
-            <ArrowDownRight className="h-3 w-3" />
+            <ArrowDownRight className="w-3 h-3" />
           )}
           {card.trend}
         </span>
-        <span className="text-xs text-[#45464d]">{card.trendLabel}</span>
       </div>
+      <p className="text-xs text-[#94a3b8]">{card.trendLabel}</p>
     </motion.div>
   );
 }
 
-function TransactionRow({ tx }: { tx: Transaction }) {
+function RevenueChart({ data }: { data: typeof MOCK_REVENUE_DATA }) {
+  const safeData = data ?? [];
   return (
-    <tr className="border-b border-[#f1f5f9] last:border-0 hover:bg-[#f8f9ff] transition-colors">
-      <td className="py-3 px-4 text-sm font-medium text-[#2170e4]">{tx.ref}</td>
-      <td className="py-3 px-4 text-sm text-[#45464d]">{tx.date}</td>
-      <td className="py-3 px-4 text-sm font-medium text-[#0b1c30]">{tx.amount}</td>
-      <td className="py-3 px-4">
-        <span
-          className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-            STATUS_STYLES[tx.status] ?? 'bg-gray-100 text-gray-600'
-          }`}
-        >
-          {tx.status}
-        </span>
-      </td>
-    </tr>
+    <ResponsiveContainer width="100%" height={260}>
+      <AreaChart data={safeData} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
+        <defs>
+          <linearGradient id="revenueGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="#2563eb" stopOpacity={0.18} />
+            <stop offset="95%" stopColor="#2563eb" stopOpacity={0} />
+          </linearGradient>
+          <linearGradient id="targetGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="#94a3b8" stopOpacity={0.1} />
+            <stop offset="95%" stopColor="#94a3b8" stopOpacity={0} />
+          </linearGradient>
+        </defs>
+        <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+        <XAxis
+          dataKey="month"
+          tick={{ fontSize: 12, fill: '#94a3b8' }}
+          axisLine={false}
+          tickLine={false}
+        />
+        <YAxis
+          tick={{ fontSize: 12, fill: '#94a3b8' }}
+          axisLine={false}
+          tickLine={false}
+          tickFormatter={(v: number) => {
+            try {
+              return `$${(v / 1000).toLocaleString('en-US', { maximumFractionDigits: 0 })}k`;
+            } catch {
+              return `$${v}`;
+            }
+          }}
+        />
+        <Tooltip
+          contentStyle={{
+            background: '#fff',
+            border: '1px solid #e2e8f0',
+            borderRadius: 8,
+            fontSize: 13,
+          }}
+          formatter={(value: number) => {
+            try {
+              return [`$${value?.toLocaleString?.('en-US') ?? String(value)}`, ''];
+            } catch {
+              return [`$${value}`, ''];
+            }
+          }}
+        />
+        <Area
+          type="monotone"
+          dataKey="target"
+          stroke="#cbd5e1"
+          strokeWidth={1.5}
+          strokeDasharray="4 4"
+          fill="url(#targetGrad)"
+          dot={false}
+        />
+        <Area
+          type="monotone"
+          dataKey="revenue"
+          stroke="#2563eb"
+          strokeWidth={2}
+          fill="url(#revenueGrad)"
+          dot={false}
+          activeDot={{ r: 5, fill: '#2563eb' }}
+        />
+      </AreaChart>
+    </ResponsiveContainer>
   );
 }
 
-// ---------------------------------------------------------------------------
-// Custom tooltip for revenue chart
-// ---------------------------------------------------------------------------
-function RevenueTooltip({
-  active,
-  payload,
-  label,
-}: {
-  active?: boolean;
-  payload?: Array<{ value: number; name: string }>;
-  label?: string;
-}) {
-  if (!active || !payload || payload.length === 0) return null;
+function UserDistributionChart({ data }: { data: typeof MOCK_USER_DISTRIBUTION }) {
+  const safeData = data ?? [];
+  const total = safeData.reduce((sum, d) => sum + (d?.value ?? 0), 0);
   return (
-    <div className="rounded-lg border border-[#e2e8f0] bg-white px-4 py-3 shadow-lg text-sm">
-      <p className="font-semibold text-[#0b1c30] mb-1">{label}</p>
-      {payload.map((entry) => (
-        <p key={entry.name} className="text-[#45464d]">
-          <span className="font-medium text-[#2170e4]">
-            ${entry.value.toLocaleString('en-US')}
-          </span>{' '}
-          {entry.name}
-        </p>
-      ))}
+    <div className="flex items-center gap-6">
+      <div className="relative flex-shrink-0">
+        <PieChart width={160} height={160}>
+          <Pie
+            data={safeData}
+            cx={75}
+            cy={75}
+            innerRadius={52}
+            outerRadius={72}
+            paddingAngle={2}
+            dataKey="value"
+          >
+            {safeData.map((entry, index) => (
+              <Cell
+                key={`cell-${entry?.name ?? index}`}
+                fill={PIE_COLORS[index % PIE_COLORS.length]}
+              />
+            ))}
+          </Pie>
+        </PieChart>
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+          <span className="text-xl font-bold text-[#1e293b] font-jakarta">
+            {(() => {
+              try {
+                return total?.toLocaleString?.('en-US') ?? String(total);
+              } catch {
+                return String(total);
+              }
+            })()}
+          </span>
+          <span className="text-xs text-[#94a3b8]">users</span>
+        </div>
+      </div>
+      <ul className="flex flex-col gap-2 flex-1">
+        {safeData.map((entry, index) => (
+          <li key={entry?.name ?? index} className="flex items-center gap-2 text-sm">
+            <span
+              className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+              style={{ background: PIE_COLORS[index % PIE_COLORS.length] }}
+            />
+            <span className="text-[#64748b] flex-1">{entry?.name ?? ''}</span>
+            <span className="font-semibold text-[#1e293b]">{entry?.value ?? 0}%</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function TransactionsTable({ transactions }: { transactions: Transaction[] }) {
+  const safeTransactions = transactions ?? [];
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm">
+        <thead>
+          <tr className="border-b border-[#f1f5f9]">
+            <th className="text-left py-3 px-4 text-xs font-semibold text-[#94a3b8] uppercase tracking-wide">
+              Transaction ID
+            </th>
+            <th className="text-left py-3 px-4 text-xs font-semibold text-[#94a3b8] uppercase tracking-wide">
+              Date
+            </th>
+            <th className="text-right py-3 px-4 text-xs font-semibold text-[#94a3b8] uppercase tracking-wide">
+              Amount
+            </th>
+            <th className="text-center py-3 px-4 text-xs font-semibold text-[#94a3b8] uppercase tracking-wide">
+              Status
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {safeTransactions.map((tx) => (
+            <tr
+              key={tx?.id ?? tx?.ref}
+              className="border-b border-[#f8fafc] hover:bg-[#f8fafc] transition-colors duration-150"
+            >
+              <td className="py-3 px-4 font-mono text-xs text-[#2563eb] font-medium">
+                {tx?.ref ?? ''}
+              </td>
+              <td className="py-3 px-4 text-[#64748b]">{tx?.date ?? ''}</td>
+              <td className="py-3 px-4 text-right font-semibold text-[#1e293b]">
+                {tx?.amount ?? ''}
+              </td>
+              <td className="py-3 px-4 text-center">
+                <span
+                  className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                    STATUS_STYLES[tx?.status ?? ''] ??
+                    'bg-gray-50 text-gray-600 border border-gray-200'
+                  }`}
+                >
+                  {tx?.status ?? ''}
+                </span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
 
 // ---------------------------------------------------------------------------
-// Page
+// Main page
 // ---------------------------------------------------------------------------
 export default function DashboardPage() {
-  const [period, setPeriod] = useState('30d');
+  const [period, setPeriod] = useState<string>('30d');
+
+  const safeKpiCards = MOCK_KPI_CARDS ?? [];
+  const safeRevenueData = MOCK_REVENUE_DATA ?? [];
+  const safeUserDistribution = MOCK_USER_DISTRIBUTION ?? [];
+  const safeTransactions = mockTransactions ?? [];
+
+  const selectedPeriodLabel =
+    PERIOD_OPTIONS.find((o) => o.value === period)?.label ?? 'Last 30 Days';
 
   return (
-    <div className="flex flex-col h-full">
-      <DashboardHeader title="Dashboard" subtitle="Welcome back, Alex" />
+    <div className="flex flex-col min-h-full">
+      <DashboardHeader title="Dashboard" subtitle="Welcome back, Alex">
+        {/* Period selector */}
+        <div className="relative">
+          <button
+            className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-[#64748b] bg-white border border-[#e2e8f0] rounded-lg hover:border-[#2563eb] hover:text-[#2563eb] transition-all duration-200"
+            onClick={() => {
+              // cycle through options for simplicity
+              const idx = PERIOD_OPTIONS.findIndex((o) => o.value === period);
+              const next = PERIOD_OPTIONS[(idx + 1) % PERIOD_OPTIONS.length];
+              setPeriod(next?.value ?? '30d');
+            }}
+          >
+            <Calendar className="w-4 h-4" />
+            {selectedPeriodLabel}
+            <ChevronDown className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      </DashboardHeader>
 
-      {/* Scrollable content */}
-      <div className="flex-1 overflow-y-auto scrollbar-thin">
-        <div className="px-6 py-6 space-y-6 max-w-[1600px] mx-auto">
-
-          {/* Top bar */}
-          <div className="flex items-center justify-between">
-            <div>
-              <h1
-                className="text-2xl font-bold tracking-tight text-[#0b1c30]"
-                style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-              >
-                Overview
-              </h1>
-              <p className="text-sm text-[#45464d] mt-0.5">Track your key metrics at a glance.</p>
-            </div>
-
-            {/* Period selector */}
-            <div className="relative flex items-center gap-2 rounded-lg border border-[#e2e8f0] bg-white px-3 py-2 shadow-sm">
-              <Calendar className="h-4 w-4 text-[#45464d]" aria-hidden="true" />
-              <select
-                value={period}
-                onChange={(e) => setPeriod(e.target.value)}
-                className="appearance-none bg-transparent text-sm font-medium text-[#0b1c30] pr-6 focus:outline-none cursor-pointer"
-                aria-label="Select time period"
-              >
-                {PERIOD_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown className="pointer-events-none absolute right-3 h-4 w-4 text-[#45464d]" aria-hidden="true" />
-            </div>
+      <div className="flex-1 p-6 space-y-6">
+        {/* Page heading */}
+        <Reveal>
+          <div>
+            <h1 className="text-2xl font-bold text-[#1e293b] font-jakarta tracking-tight">
+              Dashboard
+            </h1>
+            <p className="text-sm text-[#64748b] mt-0.5">
+              Welcome back, Alex. Here&apos;s what&apos;s happening today.
+            </p>
           </div>
+        </Reveal>
 
-          {/* KPI Cards */}
-          <Reveal>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {MOCK_KPI_CARDS.map((card) => (
-                <KPICardTile key={card.key} card={card} />
-              ))}
-            </div>
-          </Reveal>
+        {/* KPI Cards */}
+        <Reveal>
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+            {safeKpiCards.map((card) => (
+              <KPICardTile key={card.key} card={card} />
+            ))}
+          </div>
+        </Reveal>
 
+        {/* Revenue Chart + User Distribution */}
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
           {/* Revenue Growth Chart */}
-          <Reveal delay={0.05}>
+          <Reveal className="xl:col-span-2">
             <div
               className="rounded-xl border border-[#e2e8f0] bg-white p-6"
-              style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.04), 0 4px 12px -4px rgba(0,0,0,0.08)' }}
+              style={{
+                boxShadow:
+                  '0 1px 3px rgba(0,0,0,0.04), 0 4px 12px -4px rgba(0,0,0,0.08)',
+              }}
             >
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center justify-between mb-5">
                 <div>
-                  <h2
-                    className="text-base font-semibold text-[#0b1c30]"
-                    style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-                  >
+                  <h2 className="text-base font-semibold text-[#1e293b] font-jakarta">
                     Revenue Growth
                   </h2>
-                  <p className="text-xs text-[#45464d] mt-0.5">Jan 2024 – Aug 2024</p>
+                  <p className="text-xs text-[#94a3b8] mt-0.5">
+                    Monthly revenue vs target
+                  </p>
                 </div>
-                <div className="flex items-center gap-4 text-xs text-[#45464d]">
+                <div className="flex items-center gap-4 text-xs text-[#64748b]">
                   <span className="flex items-center gap-1.5">
-                    <span className="inline-block w-3 h-3 rounded-sm bg-[#2170e4]" />
+                    <span className="w-3 h-0.5 bg-[#2563eb] rounded-full inline-block" />
                     Revenue
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <span className="inline-block w-3 h-3 rounded-sm bg-[#adc6ff]" />
+                    <span
+                      className="w-3 h-0.5 inline-block rounded-full"
+                      style={{
+                        background: '#cbd5e1',
+                        backgroundImage:
+                          'repeating-linear-gradient(90deg,#cbd5e1 0,#cbd5e1 4px,transparent 4px,transparent 8px)',
+                      }}
+                    />
                     Target
                   </span>
                 </div>
               </div>
-              <ResponsiveContainer width="100%" height={260}>
-                <AreaChart data={MOCK_REVENUE_DATA} margin={{ top: 4, right: 4, left: 0, bottom: 0 }}>
-                  <defs>
-                    <linearGradient id="revenueGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#2170e4" stopOpacity={0.18} />
-                      <stop offset="95%" stopColor="#2170e4" stopOpacity={0} />
-                    </linearGradient>
-                    <linearGradient id="targetGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#adc6ff" stopOpacity={0.12} />
-                      <stop offset="95%" stopColor="#adc6ff" stopOpacity={0} />
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                  <XAxis
-                    dataKey="month"
-                    tick={{ fontSize: 12, fill: '#64748b' }}
-                    axisLine={false}
-                    tickLine={false}
-                  />
-                  <YAxis
-                    tick={{ fontSize: 12, fill: '#64748b' }}
-                    axisLine={false}
-                    tickLine={false}
-                    tickFormatter={(v: number) => `$${(v / 1000).toFixed(0)}k`}
-                    width={48}
-                  />
-                  <Tooltip content={<RevenueTooltip />} />
-                  <Area
-                    type="monotone"
-                    dataKey="target"
-                    name="Target"
-                    stroke="#adc6ff"
-                    strokeWidth={2}
-                    strokeDasharray="4 4"
-                    fill="url(#targetGrad)"
-                    dot={false}
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="revenue"
-                    name="Revenue"
-                    stroke="#2170e4"
-                    strokeWidth={2.5}
-                    fill="url(#revenueGrad)"
-                    dot={false}
-                    activeDot={{ r: 5, fill: '#2170e4', strokeWidth: 0 }}
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
+              <RevenueChart data={safeRevenueData} />
             </div>
           </Reveal>
 
-          {/* Bottom row: Transactions + User Distribution */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-            {/* Recent Transactions */}
-            <Reveal className="lg:col-span-2" delay={0.08}>
-              <div
-                className="rounded-xl border border-[#e2e8f0] bg-white h-full"
-                style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.04), 0 4px 12px -4px rgba(0,0,0,0.08)' }}
-              >
-                <div className="flex items-center justify-between px-6 py-4 border-b border-[#f1f5f9]">
-                  <h2
-                    className="text-base font-semibold text-[#0b1c30]"
-                    style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-                  >
-                    Recent Transactions
-                  </h2>
-                  <button className="text-xs font-medium text-[#2170e4] hover:underline transition-colors">
-                    View All
-                  </button>
-                </div>
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead>
-                      <tr className="border-b border-[#f1f5f9]">
-                        <th className="py-3 px-4 text-left text-xs font-semibold text-[#45464d] uppercase tracking-wider">
-                          Transaction ID
-                        </th>
-                        <th className="py-3 px-4 text-left text-xs font-semibold text-[#45464d] uppercase tracking-wider">
-                          Date
-                        </th>
-                        <th className="py-3 px-4 text-left text-xs font-semibold text-[#45464d] uppercase tracking-wider">
-                          Amount
-                        </th>
-                        <th className="py-3 px-4 text-left text-xs font-semibold text-[#45464d] uppercase tracking-wider">
-                          Status
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {mockTransactions.map((tx) => (
-                        <TransactionRow key={tx.id} tx={tx} />
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </Reveal>
-
-            {/* User Distribution Donut */}
-            <Reveal delay={0.1}>
-              <div
-                className="rounded-xl border border-[#e2e8f0] bg-white p-6 h-full flex flex-col"
-                style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.04), 0 4px 12px -4px rgba(0,0,0,0.08)' }}
-              >
-                <h2
-                  className="text-base font-semibold text-[#0b1c30] mb-4"
-                  style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-                >
-                  User Distribution
-                </h2>
-
-                <div className="flex-1 flex items-center justify-center">
-                  <div className="relative">
-                    <ResponsiveContainer width={180} height={180}>
-                      <PieChart>
-                        <Pie
-                          data={MOCK_USER_DISTRIBUTION}
-                          cx="50%"
-                          cy="50%"
-                          innerRadius={55}
-                          outerRadius={80}
-                          paddingAngle={3}
-                          dataKey="value"
-                          startAngle={90}
-                          endAngle={-270}
-                        >
-                          {MOCK_USER_DISTRIBUTION.map((entry, index) => (
-                            <Cell
-                              key={entry.name}
-                              fill={PIE_COLORS[index % PIE_COLORS.length]}
-                            />
-                          ))}
-                        </Pie>
-                      </PieChart>
-                    </ResponsiveContainer>
-                    {/* Center label */}
-                    <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                      <span
-                        className="text-2xl font-bold text-[#0b1c30]"
-                        style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-                      >
-                        14,208
-                      </span>
-                      <span className="text-xs text-[#45464d]">Total Users</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Legend */}
-                <ul className="mt-4 space-y-2">
-                  {MOCK_USER_DISTRIBUTION.map((entry, index) => (
-                    <li key={entry.name} className="flex items-center justify-between text-sm">
-                      <span className="flex items-center gap-2">
-                        <span
-                          className="inline-block w-2.5 h-2.5 rounded-full"
-                          style={{ backgroundColor: PIE_COLORS[index % PIE_COLORS.length] }}
-                        />
-                        <span className="text-[#45464d]">{entry.name}</span>
-                      </span>
-                      <span className="font-semibold text-[#0b1c30]">{entry.value}%</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Reveal>
-          </div>
+          {/* User Distribution */}
+          <Reveal>
+            <div
+              className="rounded-xl border border-[#e2e8f0] bg-white p-6 h-full"
+              style={{
+                boxShadow:
+                  '0 1px 3px rgba(0,0,0,0.04), 0 4px 12px -4px rgba(0,0,0,0.08)',
+              }}
+            >
+              <h2 className="text-base font-semibold text-[#1e293b] font-jakarta mb-1">
+                User Distribution
+              </h2>
+              <p className="text-xs text-[#94a3b8] mb-5">Segment breakdown</p>
+              <UserDistributionChart data={safeUserDistribution} />
+            </div>
+          </Reveal>
         </div>
+
+        {/* Recent Transactions */}
+        <Reveal>
+          <div
+            className="rounded-xl border border-[#e2e8f0] bg-white"
+            style={{
+              boxShadow:
+                '0 1px 3px rgba(0,0,0,0.04), 0 4px 12px -4px rgba(0,0,0,0.08)',
+            }}
+          >
+            <div className="flex items-center justify-between px-6 py-4 border-b border-[#f1f5f9]">
+              <div>
+                <h2 className="text-base font-semibold text-[#1e293b] font-jakarta">
+                  Recent Transactions
+                </h2>
+                <p className="text-xs text-[#94a3b8] mt-0.5">
+                  Latest payment activity
+                </p>
+              </div>
+              <button className="text-xs font-semibold text-[#2563eb] hover:text-[#1d4ed8] transition-colors duration-200">
+                View All
+              </button>
+            </div>
+            <TransactionsTable transactions={safeTransactions} />
+          </div>
+        </Reveal>
       </div>
     </div>
   );

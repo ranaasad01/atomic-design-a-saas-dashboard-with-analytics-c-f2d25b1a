@@ -9,8 +9,16 @@ import { BarChart2 } from 'lucide-react';
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const t = useTranslations();
-  const navT = t.raw("nav") as Record<string, string>;
+  const t = useTranslations('nav');
+
+  const getLabel = (key: string, fallback: string): string => {
+    try {
+      const result = t(key as Parameters<typeof t>[0]);
+      return result || fallback;
+    } catch {
+      return fallback;
+    }
+  };
 
   return (
     <aside
@@ -40,7 +48,7 @@ export default function Sidebar() {
               ? pathname === "/"
               : pathname.startsWith(link.href);
           const Icon = link.icon;
-          const label = navT[link.key] ?? link.label;
+          const label = getLabel(link.key, link.label);
 
           return (
             <Link

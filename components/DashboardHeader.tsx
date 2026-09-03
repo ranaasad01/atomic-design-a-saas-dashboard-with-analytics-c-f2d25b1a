@@ -11,9 +11,24 @@ interface DashboardHeaderProps {
   children?: React.ReactNode;
 }
 
+// Safe translation helper — returns fallback if the key is missing or
+// next-intl throws for any reason (e.g. missing message catalog key).
+function safe(fn: () => string, fallback: string): string {
+  try {
+    return fn() ?? fallback;
+  } catch {
+    return fallback;
+  }
+}
+
 export default function DashboardHeader({ title, subtitle, children }: DashboardHeaderProps) {
   const [searchValue, setSearchValue] = useState("");
-  const t = useTranslations();
+  const tHeader = useTranslations("header");
+
+  const searchPlaceholder = safe(() => tHeader("searchPlaceholder"), "Search...");
+  const notificationsLabel = safe(() => tHeader("notifications"), "Notifications");
+  const helpLabel = safe(() => tHeader("help"), "Help Center");
+  const userMenuLabel = safe(() => tHeader("userMenu"), "User menu");
 
   return (
     <header
@@ -31,9 +46,9 @@ export default function DashboardHeader({ title, subtitle, children }: Dashboard
             type="search"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
-            placeholder={t("header.searchPlaceholder")}
+            placeholder={searchPlaceholder}
             className="w-full pl-9 pr-4 py-2 text-sm bg-[var(--color-surface-container-low)] border border-[var(--brand-card-border)] rounded-lg text-[var(--color-on-surface)] placeholder:text-[var(--brand-sidebar-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)] focus:border-transparent transition-all duration-200"
-            aria-label={t("header.searchPlaceholder")}
+            aria-label={searchPlaceholder}
           />
         </div>
       </div>
@@ -45,7 +60,7 @@ export default function DashboardHeader({ title, subtitle, children }: Dashboard
         {/* Notification Bell */}
         <button
           className="relative p-2 rounded-lg text-[var(--brand-sidebar-muted)] hover:bg-[var(--brand-primary-light)] hover:text-[var(--brand-primary)] transition-colors duration-200"
-          aria-label={t("header.notifications")}
+          aria-label={notificationsLabel}
         >
           <Bell className="w-5 h-5" aria-hidden="true" />
           <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-[var(--brand-danger)] rounded-full" aria-hidden="true" />
@@ -55,7 +70,7 @@ export default function DashboardHeader({ title, subtitle, children }: Dashboard
         <Link
           href="/help"
           className="p-2 rounded-lg text-[var(--brand-sidebar-muted)] hover:bg-[var(--brand-primary-light)] hover:text-[var(--brand-primary)] transition-colors duration-200"
-          aria-label={t("header.help")}
+          aria-label={helpLabel}
         >
           <HelpCircle className="w-5 h-5" aria-hidden="true" />
         </Link>
@@ -66,7 +81,7 @@ export default function DashboardHeader({ title, subtitle, children }: Dashboard
         {/* User Avatar */}
         <button
           className="w-8 h-8 rounded-full bg-[var(--brand-primary)] flex items-center justify-center hover:ring-2 hover:ring-[var(--brand-primary)] hover:ring-offset-2 transition-all duration-200"
-          aria-label={t("header.userMenu")}
+          aria-label={userMenuLabel}
         >
           <span className="text-xs font-semibold text-white">AM</span>
         </button>
