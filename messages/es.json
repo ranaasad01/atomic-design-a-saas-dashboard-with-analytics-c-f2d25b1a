@@ -1,0 +1,806 @@
+{
+  "nav": {
+    "dashboard": "Panel de control",
+    "analytics": "Análisis",
+    "reports": "Informes",
+    "team": "Equipo",
+    "settings": "Configuración",
+    "help": "Centro de ayuda"
+  },
+  "header": {
+    "searchPlaceholder": "Buscar métricas, informes o miembros del equipo...",
+    "notifications": "Notificaciones — 3 alertas sin leer",
+    "help": "Centro de ayuda",
+    "userMenu": "Alex Morgan — Administrador",
+    "dateRange": "Últimos 30 días",
+    "items": [
+      "Global search — find metrics, reports, or team members instantly",
+      "Notification bell — 3 unread alerts waiting for your review",
+      "Help icon — jump to the Help Center at any time",
+      "Date range selector — currently showing: Last 30 Days",
+      "User avatar — Alex Morgan, Admin"
+    ]
+  },
+  "analytics": {
+    "heading": "Análisis",
+    "body": "Un análisis profundo de tu tráfico, canales de adquisición y contenido de mejor rendimiento — todo en un solo lugar. Usa los filtros a continuación para segmentar por canal, región o segmento, y luego exporta tus hallazgos con un solo clic.",
+    "dateRange": "Últimos 30 días",
+    "deviceDistribution": {
+      "desktop": "Escritorio",
+      "mobile": "Móvil",
+      "tablet": "Tablet",
+      "title": "Distribución de dispositivos"
+    },
+    "export": "Exportar",
+    "filters": {
+      "clear": "Limpiar filtros",
+      "label": "Filtros"
+    },
+    "subtitle": "Monitorea el comportamiento y la participación de los usuarios en tu sitio",
+    "title": "Análisis",
+    "topPages": {
+      "colAvgTime": "Tiempo promedio",
+      "colChange": "Cambio",
+      "colPageviews": "Vistas de página",
+      "colPath": "Página",
+      "title": "Páginas principales",
+      "viewAll": "Ver todo"
+    },
+    "trafficSources": {
+      "direct": "Directo",
+      "organic": "Orgánico",
+      "referral": "Referencia",
+      "title": "Fuentes de tráfico"
+    }
+  },
+  "help": {
+    "heroHeading": "¿Cómo podemos ayudarte?",
+    "heroBody": "Busca en nuestra base de conocimientos guías, documentación de API y mejores prácticas para aprovechar Analytix Pro.",
+    "searchPlaceholder": "Buscar artículos, puntos finales de API o guías de solución de problemas...",
+    "searchButton": "Buscar",
+    "browseHeading": "Explorar por tema",
+    "faqHeading": "Preguntas frecuentes",
+    "faq": {
+      "heading": "Preguntas frecuentes",
+      "subtitle": "Encuentra respuestas a preguntas frecuentes"
+    },
+    "hero": {
+      "searchButton": "Buscar",
+      "searchPlaceholder": "Buscar artículos de ayuda...",
+      "subtitle": "Obtén respuestas instantáneas y soporte",
+      "title": "Centro de Ayuda"
+    },
+    "popular": {
+      "heading": "Artículos Populares",
+      "viewAll": "Ver todos los artículos"
+    },
+    "status": {
+      "badge": "Estado del Sistema",
+      "heading": "Estado del Servicio",
+      "historyLink": "Ver historial",
+      "note": "Todos los sistemas operativos"
+    },
+    "support": {
+      "heading": "Contactar Soporte"
+    },
+    "topics": {
+      "heading": "Temas de Ayuda"
+    },
+    "categories": [
+      {
+        "title": "Getting Started",
+        "desc": "Quick start guides, platform overview, and initial workspace setup to get you running in minutes."
+      },
+      {
+        "title": "Account & Billing",
+        "desc": "Manage team access, roles, subscription plans, and invoices for your workspace."
+      },
+      {
+        "title": "Data Security",
+        "desc": "Compliance documentation, SSO setup, and data retention policies to keep your data safe."
+      },
+      {
+        "title": "API Reference",
+        "desc": "Endpoints, authentication, webhooks, and rate limits for building on top of Analytix Pro."
+      }
+    ],
+    "faqs": [
+      {
+        "q": "How do I invite a new team member?",
+        "a": "Navigate to the Team page, click Invite Member, enter their email address, select a role, and send the invitation. They will receive an email with a link to join your workspace."
+      },
+      {
+        "q": "Can I export my analytics data?",
+        "a": "Yes. On the Analytics page, click the Export button in the top-right corner. You can download a CSV or PDF snapshot of all data matching your current filter selections."
+      },
+      {
+        "q": "How are scheduled reports delivered?",
+        "a": "Scheduled reports are generated automatically at the configured time and saved to your report-exports storage. You can also configure email delivery from the Reports page."
+      },
+      {
+        "q": "What does the Conversion Rate metric measure?",
+        "a": "Conversion Rate is the percentage of sessions that completed a defined goal action — such as signing up, upgrading a plan, or completing a purchase — during the selected period."
+      },
+      {
+        "q": "How do I change my workspace timezone?",
+        "a": "Go to Settings, select the General tab, and update the Timezone field. All chart timestamps and scheduled report delivery times will update immediately."
+      }
+    ]
+  },
+  "dashboard": {
+    "greeting": "Buenos días, Alex",
+    "greetingBody": "Esto es lo que está sucediendo en tu espacio de trabajo hoy. Todas las métricas reflejan los últimos 30 días a menos que cambies el rango de fechas.",
+    "performanceHeading": "Rendimiento de un Vistazo",
+    "performanceBody": "Cuatro métricas clave resumen la salud de tu espacio de trabajo para el período actual en comparación con los últimos 30 días.",
+    "revenueHeading": "Crecimiento de Ingresos",
+    "revenueBody": "Ingresos mensuales representados como un gráfico de área interactivo. Pasa el cursor sobre cualquier punto de datos para ver la cifra exacta y la variación mes a mes.",
+    "trafficHeading": "Fuentes de Tráfico",
+    "trafficBody": "Comprende de dónde provienen tus visitantes. Alterna entre vistas Diaria, Semanal y Mensual para detectar tendencias en los canales Directo, Orgánico y Referencia.",
+    "transactionsHeading": "Transacciones Recientes",
+    "transactionsBody": "La actividad de pago más reciente en tu espacio de trabajo.",
+    "transactionsCta": "Ver Todas las Transacciones",
+    "distributionHeading": "Distribución de Usuarios y Dispositivos",
+    "distributionBody": "Dos gráficos de anillo te dan una lectura rápida sobre quiénes son tus usuarios y cómo acceden a tu producto.",
+    "vsLastPeriod": "vs período anterior",
+    "totalUsers": "Total",
+    "viewAll": "Ver Todo",
+    "header": {
+      "greeting": "Bienvenido de vuelta",
+      "subtitle": "Aquí está tu resumen de rendimiento"
+    },
+    "legendRevenue": "Ingresos",
+    "legendTarget": "Objetivo",
+    "recentTransactions": "Transacciones Recientes",
+    "revenueChart": {
+      "subtitle": "Tendencia de ingresos recurrentes mensuales",
+      "title": "Ingresos"
+    },
+    "revenueGrowth": "+12.5%",
+    "revenueSubtitle": "vs. mes anterior",
+    "subtitle": "Monitorea métricas clave y rendimiento empresarial",
+    "table": {
+      "amount": "Cantidad",
+      "date": "Fecha",
+      "status": "Estado",
+      "txId": "ID de Transacción"
+    },
+    "transactions": {
+      "colAmount": "Cantidad",
+      "colDate": "Fecha",
+      "colId": "ID",
+      "colStatus": "Estado",
+      "title": "Transacciones",
+      "viewAll": "Ver todo"
+    },
+    "userDist": {
+      "title": "Distribución de Usuarios"
+    },
+    "userDistribution": "Usuarios activos por región",
+    "welcome": "Panel de Control"
+  },
+  "reports": {
+    "heading": "Informes",
+    "body": "Genera, programa y gestiona todos tus informes de análisis en un solo lugar.",
+    "createCta": "Crear Nuevo Informe",
+    "overviewHeading": "Resumen de Informes",
+    "overviewBody": "Una instantánea de tu actividad de informes este mes.",
+    "allReportsHeading": "Todos los Informes",
+    "allReportsBody": "Explora todos los informes que tu espacio de trabajo ha creado.",
+    "readyHeading": "¿Listo para crear un nuevo informe?",
+    "readyBody": "Elige entre plantillas predefinidas o comienza desde cero. Configura tus fuentes de datos, filtros y calendario de entrega.",
+    "col": {
+      "actions": "Acciones",
+      "generated": "Generado",
+      "name": "Nombre del Informe",
+      "size": "Tamaño",
+      "status": "Estado",
+      "type": "Tipo"
+    },
+    "createBtn": "Crear Informe",
+    "emptyState": "Sin informes aún. Crea uno para comenzar.",
+    "next": "Siguiente",
+    "prev": "Anterior",
+    "searchPlaceholder": "Buscar informes…",
+    "showing": "Mostrando",
+    "subheading": "Gestiona y descarga tus informes de análisis",
+    "tableTitle": "Informes"
+  },
+  "team": {
+    "heading": "Miembros del Equipo",
+    "body": "Gestiona quién tiene acceso a tu espacio de trabajo Analytix Pro. Asigna roles, rastrea actividad y mantén tu equipo sincronizado.",
+    "inviteCta": "Invitar Miembro",
+    "workspaceHeading": "Tu Equipo del Espacio de Trabajo",
+    "workspaceBody": "Todos los miembros activos y pendientes de tu espacio de trabajo se enumeran a continuación.",
+    "growHeading": "Crece tu equipo — colabora más rápido",
+    "growBody": "Invita a colegas, clientes o partes interesadas a tu espacio de trabajo de Analytix Pro.",
+    "sendInvitation": "Enviar una invitación",
+    "filter": {
+      "active": "Activo",
+      "allStatus": "Todos los estados",
+      "label": "Filtrar por estado",
+      "pending": "Pendiente"
+    },
+    "inviteButton": "Invitar miembro",
+    "modal": {
+      "cancel": "Cancelar",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "nombre@empresa.com",
+      "roleLabel": "Rol",
+      "send": "Enviar invitación",
+      "subtitle": "Recibirán un correo electrónico para unirse a tu espacio de trabajo.",
+      "title": "Invitar miembro del equipo"
+    },
+    "stats": {
+      "active": "Activo",
+      "pending": "Pendiente",
+      "total": "Miembros totales"
+    },
+    "subtitle": "Gestiona tu equipo y controla los permisos de acceso.",
+    "table": {
+      "actions": "Acciones",
+      "empty": "Sin miembros del equipo aún. Invita a alguien para comenzar.",
+      "heading": "Miembros del equipo",
+      "joined": "Se unió",
+      "lastSeen": "Última vez visto",
+      "member": "Miembro",
+      "role": "Rol",
+      "status": "Estado",
+      "subheading": "Ver y gestionar todos los miembros en tu espacio de trabajo."
+    },
+    "title": "Equipo"
+  },
+  "settings": {
+    "heading": "Configuración",
+    "body": "Gestiona tu cuenta, preferencias del espacio de trabajo, seguridad y facturación todo en un solo lugar.",
+    "accountHeading": "Información de la cuenta",
+    "accountBody": "Mantén tus detalles personales y del espacio de trabajo actualizados. Los cambios surten efecto inmediatamente.",
+    "saveCta": "Guardar cambios",
+    "workspaceHeading": "Configuración del espacio de trabajo",
+    "workspaceBody": "Gestiona la configuración del espacio de trabajo de tu equipo.",
+    "appearanceHeading": "Apariencia",
+    "appearanceBody": "Elige cómo se ve Analytix Pro para ti.",
+    "applyCta": "Aplicar tema",
+    "dataHeading": "Gestión de datos",
+    "dataBody": "Exporta, respalda o elimina permanentemente los datos de tu espacio de trabajo.",
+    "exportCta": "Exportar Todos los Datos",
+    "accountInfo": {
+      "emailAddress": "Correo Electrónico",
+      "fullName": "Nombre Completo",
+      "organization": "Organización",
+      "saveChanges": "Guardar Cambios",
+      "subtitle": "Actualiza tu información de perfil",
+      "title": "Información de Cuenta"
+    },
+    "appearance": {
+      "dark": "Oscuro",
+      "darkTheme": "Modo Oscuro",
+      "light": "Claro",
+      "lightTheme": "Modo Claro",
+      "theme": "Tema",
+      "title": "Apariencia"
+    },
+    "billing": {
+      "apiCalls": "Llamadas API",
+      "cardEnding": "Tarjeta terminada en",
+      "cardExpiry": "Vence",
+      "currentPlan": "Plan Actual",
+      "currentPlanDesc": "Estás en el plan Pro",
+      "download": "Descargar Factura",
+      "invoices": "Facturas",
+      "paymentMethod": "Método de Pago",
+      "paymentMethodDesc": "Gestiona tu información de facturación",
+      "planBadge": "Activo",
+      "planName": "Pro",
+      "planPrice": "$99/mes",
+      "seats": "Asientos de Equipo",
+      "storage": "Almacenamiento",
+      "updateCard": "Actualizar Tarjeta",
+      "upgradePlan": "Mejorar Plan"
+    },
+    "dataManagement": {
+      "dataRetention": "Retención de Datos",
+      "dataRetentionDesc": "Elige cuánto tiempo se almacenan los datos de análisis antes de la eliminación automática.",
+      "edit": "Editar",
+      "export": "Exportar",
+      "exportData": "Exportar Datos",
+      "exportDataDesc": "Descarga tus datos de análisis como CSV para análisis externo.",
+      "title": "Gestión de Datos"
+    },
+    "notifications": {
+      "emailDigest": "Resumen por Correo",
+      "emailDigestDesc": "Resumen semanal de métricas clave e insights.",
+      "productUpdates": "Actualizaciones de Producto",
+      "productUpdatesDesc": "Nuevas características y mejoras de la plataforma.",
+      "reportReady": "Informe Listo",
+      "reportReadyDesc": "Alertas cuando se generan informes programados.",
+      "securityAlerts": "Alertas de Seguridad",
+      "securityAlertsDesc": "Actividad inusual e intentos de inicio de sesión.",
+      "subtitle": "Controla cómo y cuándo recibes actualizaciones.",
+      "teamActivity": "Actividad del Equipo",
+      "teamActivityDesc": "Actualizaciones sobre acciones y cambios de miembros del equipo.",
+      "title": "Notificaciones"
+    },
+    "profile": {
+      "bio": "Biografía",
+      "changePhoto": "Cambiar Foto",
+      "fullName": "Nombre Completo",
+      "jobTitle": "Puesto de Trabajo",
+      "phone": "Teléfono",
+      "photoHint": "JPG, PNG o GIF. Máximo 5MB.",
+      "saveChanges": "Guardar Cambios",
+      "subtitle": "Actualiza tu información personal.",
+      "title": "Perfil"
+    },
+    "security": {
+      "changePassword": "Cambiar Contraseña",
+      "changePasswordDesc": "Actualiza tu contraseña regularmente por seguridad.",
+      "confirmPassword": "Confirmar Contraseña",
+      "currentPassword": "Contraseña Actual",
+      "newPassword": "Nueva Contraseña",
+      "twoFactor": "Autenticación de Dos Factores",
+      "twoFactorDesc": "Añade una capa extra de seguridad a tu cuenta.",
+      "twoFactorDisabled": "Deshabilitado",
+      "twoFactorEnabled": "Habilitado",
+      "twoFactorLabel": "Estado",
+      "updatePassword": "Actualizar Contraseña"
+    },
+    "subtitle": "Gestiona tu cuenta y preferencias.",
+    "tabsAriaLabel": "Secciones de configuración",
+    "title": "Configuración",
+    "workspace": {
+      "saveChanges": "Guardar Cambios",
+      "subtitle": "Configura los ajustes de tu espacio de trabajo.",
+      "timeZone": "Zona Horaria",
+      "title": "Espacio de Trabajo",
+      "workspaceName": "Nombre del Espacio de Trabajo",
+      "workspaceUrl": "URL del Espacio de Trabajo"
+    }
+  },
+  "kpi-cards": [
+    {
+      "title": "Total Revenue",
+      "value": "$84,320",
+      "trend": "+12.4%",
+      "trendDirection": "up",
+      "trendLabel": "vs last period"
+    },
+    {
+      "title": "Active Users",
+      "value": "14,208",
+      "trend": "+8.1%",
+      "trendDirection": "up",
+      "trendLabel": "vs last period"
+    },
+    {
+      "title": "Total Sessions",
+      "value": "39,540",
+      "trend": "-2.7%",
+      "trendDirection": "down",
+      "trendLabel": "vs last period"
+    },
+    {
+      "title": "Conversion Rate",
+      "value": "3.86%",
+      "trend": "+0.5 pp",
+      "trendDirection": "up",
+      "trendLabel": "vs last period"
+    }
+  ],
+  "revenue-chart": [
+    "Jan — $52,400",
+    "Feb — $58,900",
+    "Mar — $61,200",
+    "Apr — $67,800",
+    "May — $71,500",
+    "Jun — $75,100",
+    "Jul — $79,300",
+    "Aug — $84,320",
+    "Tooltip shows: month label, revenue value, and delta % vs prior month",
+    "Chart legend: Revenue (blue fill) — target line (dashed gray)"
+  ],
+  "traffic-chart": [
+    "Period toggle: Daily | Weekly | Monthly — default Weekly",
+    "Direct traffic — solid blue bars — avg 4,210 sessions/week",
+    "Organic search — solid indigo bars — avg 6,830 sessions/week",
+    "Referral links — solid teal bars — avg 2,490 sessions/week",
+    "Week of Jul 29 peak: Direct 5,100 · Organic 8,240 · Referral 3,010",
+    "Legend: Direct (#2563EB) · Organic (#6366F1) · Referral (#10B981)"
+  ],
+  "transactions": [
+    {
+      "ref": "TXN-00841",
+      "date": "Aug 14, 2024",
+      "amount": "$1,200.00",
+      "status": "Completed"
+    },
+    {
+      "ref": "TXN-00840",
+      "date": "Aug 13, 2024",
+      "amount": "$349.00",
+      "status": "Completed"
+    },
+    {
+      "ref": "TXN-00839",
+      "date": "Aug 13, 2024",
+      "amount": "$89.00",
+      "status": "Pending"
+    },
+    {
+      "ref": "TXN-00838",
+      "date": "Aug 12, 2024",
+      "amount": "$2,750.00",
+      "status": "Completed"
+    },
+    {
+      "ref": "TXN-00837",
+      "date": "Aug 11, 2024",
+      "amount": "$540.00",
+      "status": "Failed"
+    },
+    {
+      "ref": "TXN-00836",
+      "date": "Aug 10, 2024",
+      "amount": "$199.00",
+      "status": "Completed"
+    },
+    "Status badge colours: Completed → green · Pending → amber · Failed → red"
+  ],
+  "distribution-charts": [
+    "User Distribution donut — total 14,208 users — center label shows total count",
+    "User segments: New Users 38% (#2563EB) · Returning 47% (#6366F1) · Churned 15% (#EF4444)",
+    "Device Distribution donut — Desktop 54% · Mobile 33% · Tablet 13%",
+    "Desktop — #2563EB — 7,672 sessions",
+    "Mobile — #10B981 — 4,689 sessions",
+    "Tablet — #F59E0B — 1,847 sessions",
+    "Legend positioned to the right of each donut with percentage and raw count"
+  ],
+  "filter-bar": [
+    "All Channels — filter by Direct, Organic Search, Paid Search, Referral, Social, or Email",
+    "All Regions — filter by North America, Europe, Asia-Pacific, Latin America, or Middle East & Africa",
+    "All Segments — filter by Enterprise, Mid-Market, SMB, or Free Tier",
+    "Clear Filters — reset all active selections and return to the full dataset"
+  ],
+  "traffic-sources": [
+    "Direct — visitors who navigate straight to your domain without a referrer; currently 38% of total sessions",
+    "Organic Search — sessions driven by unpaid search engine results; currently 44% of total sessions and growing +12% week-over-week",
+    "Referral — sessions arriving via backlinks from third-party sites; currently 18% of total sessions",
+    "Daily view — bar chart showing per-day session counts for the selected date range",
+    "Weekly view — aggregated weekly bars to smooth out day-of-week variance",
+    "Monthly view — high-level monthly totals ideal for executive reporting"
+  ],
+  "top-pages": [
+    {
+      "path": "/dashboard",
+      "pageviews": "24,810",
+      "avgTime": "3m 42s",
+      "changePct": 8.4
+    },
+    {
+      "path": "/pricing",
+      "pageviews": "18,340",
+      "avgTime": "2m 15s",
+      "changePct": 21.7
+    },
+    {
+      "path": "/features",
+      "pageviews": "14,920",
+      "avgTime": "4m 03s",
+      "changePct": 5.2
+    },
+    {
+      "path": "/blog/analytics-best-practices",
+      "pageviews": "11,650",
+      "avgTime": "6m 28s",
+      "changePct": 33.1
+    },
+    {
+      "path": "/signup",
+      "pageviews": "9,480",
+      "avgTime": "1m 54s",
+      "changePct": -3.6
+    },
+    {
+      "path": "/docs/getting-started",
+      "pageviews": "7,210",
+      "avgTime": "5m 11s",
+      "changePct": 14.9
+    },
+    {
+      "path": "/integrations",
+      "pageviews": "5,870",
+      "avgTime": "3m 07s",
+      "changePct": 2.0
+    },
+    {
+      "path": "/changelog",
+      "pageviews": "3,340",
+      "avgTime": "2m 49s",
+      "changePct": -1.2
+    }
+  ],
+  "export-cta": [
+    "Export as CSV — raw tabular data ready for Excel, Google Sheets, or your data warehouse",
+    "Export as PDF — formatted report with charts and tables, ideal for sharing with stakeholders",
+    "Exports include all rows matching your current Channel, Region, and Segment filters",
+    "Files are saved to your report-exports storage and accessible from the Reports page"
+  ],
+  "report-stats": [
+    {
+      "label": "Reports Generated",
+      "value": "142",
+      "trend": "+18%",
+      "sub": "This month"
+    },
+    {
+      "label": "Scheduled Reports",
+      "value": "9",
+      "sub": "Active automations"
+    },
+    {
+      "label": "Storage Used",
+      "value": "3.7 GB",
+      "sub": "of 10 GB used",
+      "progress": 37
+    }
+  ],
+  "reports-list": [
+    {
+      "name": "Monthly Revenue Summary",
+      "type": "Financial",
+      "status": "Completed",
+      "date": "Jun 30, 2024",
+      "size": "412 KB"
+    },
+    {
+      "name": "Weekly Traffic Breakdown",
+      "type": "Analytics",
+      "status": "Scheduled",
+      "date": "Jul 1, 2024",
+      "size": "198 KB",
+      "schedule": "Every Monday 08:00 UTC"
+    },
+    {
+      "name": "Q2 Conversion Funnel Report",
+      "type": "Marketing",
+      "status": "Completed",
+      "date": "Jun 28, 2024",
+      "size": "874 KB"
+    },
+    {
+      "name": "Daily Active Users Digest",
+      "type": "Analytics",
+      "status": "Scheduled",
+      "date": "Jul 3, 2024",
+      "size": "95 KB",
+      "schedule": "Every day 07:00 UTC"
+    },
+    {
+      "name": "Device & Channel Attribution",
+      "type": "Analytics",
+      "status": "Completed",
+      "date": "Jun 25, 2024",
+      "size": "560 KB"
+    },
+    {
+      "name": "Top Pages Performance",
+      "type": "SEO",
+      "status": "Completed",
+      "date": "Jun 22, 2024",
+      "size": "231 KB"
+    },
+    {
+      "name": "Churn Risk Segment Analysis",
+      "type": "Customer Success",
+      "status": "Draft",
+      "date": "Jul 2, 2024",
+      "size": "—"
+    },
+    {
+      "name": "Billing & Subscription Summary",
+      "type": "Financial",
+      "status": "Scheduled",
+      "date": "Jul 1, 2024",
+      "size": "318 KB",
+      "schedule": "1st of each month"
+    }
+  ],
+  "create-cta": [
+    {
+      "title": "Revenue & Financial",
+      "desc": "Pre-built template covering MRR, ARR, churn, and billing breakdowns"
+    },
+    {
+      "title": "Traffic & Acquisition",
+      "desc": "Template for channel attribution, source breakdown, and campaign performance"
+    },
+    {
+      "title": "User Behavior",
+      "desc": "Template for session depth, top pages, funnel drop-off, and engagement metrics"
+    },
+    {
+      "title": "Custom Report",
+      "desc": "Start from a blank canvas and pick any metrics, dimensions, and date ranges you need"
+    }
+  ],
+  "team-header": [
+    "5 members · 2 pending invitations",
+    "Roles available: Owner, Admin, Editor, Viewer",
+    "Changes take effect immediately"
+  ],
+  "team-list": [
+    {
+      "name": "Jordan Ellis",
+      "email": "jordan.ellis@company.com",
+      "role": "Owner",
+      "status": "active",
+      "lastSeen": "2 hours ago",
+      "joinedAt": "Jan 12, 2024"
+    },
+    {
+      "name": "Priya Nair",
+      "email": "priya.nair@company.com",
+      "role": "Admin",
+      "status": "active",
+      "lastSeen": "Yesterday",
+      "joinedAt": "Feb 3, 2024"
+    },
+    {
+      "name": "Marcus Webb",
+      "email": "marcus.webb@company.com",
+      "role": "Editor",
+      "status": "active",
+      "lastSeen": "3 days ago",
+      "joinedAt": "Mar 18, 2024"
+    },
+    {
+      "name": "Sofia Reyes",
+      "email": "sofia.reyes@company.com",
+      "role": "Viewer",
+      "status": "active",
+      "lastSeen": "1 week ago",
+      "joinedAt": "Apr 7, 2024"
+    },
+    {
+      "name": "Daniel Cho",
+      "email": "daniel.cho@company.com",
+      "role": "Editor",
+      "status": "active",
+      "lastSeen": "Today",
+      "joinedAt": "Apr 22, 2024"
+    },
+    {
+      "name": "alex.morgan@agency.io",
+      "email": "alex.morgan@agency.io",
+      "role": "Viewer",
+      "status": "pending",
+      "lastSeen": "Pending",
+      "joinedAt": "May 14, 2024"
+    },
+    {
+      "name": "team-lead@partnerco.com",
+      "email": "team-lead@partnerco.com",
+      "role": "Admin",
+      "status": "pending",
+      "lastSeen": "Pending",
+      "joinedAt": "May 20, 2024"
+    }
+  ],
+  "invite-cta": [
+    {
+      "role": "Owner",
+      "desc": "Full workspace control, billing access, and member management"
+    },
+    {
+      "role": "Admin",
+      "desc": "Can create and delete reports, manage team members, and configure settings"
+    },
+    {
+      "role": "Editor",
+      "desc": "Can build dashboards, run analytics, and generate reports"
+    },
+    {
+      "role": "Viewer",
+      "desc": "Read-only access to shared dashboards and reports"
+    }
+  ],
+  "settings-tabs": [
+    {
+      "key": "general",
+      "label": "General",
+      "desc": "Workspace name, timezone, language, and default date range preferences"
+    },
+    {
+      "key": "profile",
+      "label": "Profile",
+      "desc": "Display name, email address, avatar, and personal contact details"
+    },
+    {
+      "key": "notifications",
+      "label": "Notifications",
+      "desc": "Configure email digests, push alerts, and weekly summary reports"
+    },
+    {
+      "key": "security",
+      "label": "Security",
+      "desc": "Two-factor authentication, active sessions, and password management"
+    },
+    {
+      "key": "billing",
+      "label": "Billing",
+      "desc": "Current plan, usage limits, payment method, and invoice history"
+    }
+  ],
+  "account-form": [
+    {
+      "label": "Display Name",
+      "placeholder": "Jordan Ellis",
+      "hint": "The name shown to teammates and in exported reports"
+    },
+    {
+      "label": "Email Address",
+      "placeholder": "jordan.ellis@company.com",
+      "hint": "Your login email and the address used for system notifications"
+    },
+    {
+      "label": "Company / Organization",
+      "placeholder": "Lumina Analytics Inc.",
+      "hint": "Your company name as it appears on invoices and shared dashboards"
+    },
+    {
+      "label": "Job Title",
+      "placeholder": "Head of Growth",
+      "hint": "Helps teammates identify your role within the workspace"
+    },
+    {
+      "label": "Workspace Name",
+      "placeholder": "lumina-analytics",
+      "hint": "The unique identifier for your Analytix Pro workspace"
+    },
+    {
+      "label": "Timezone",
+      "placeholder": "America/New_York — UTC-5",
+      "hint": "All chart timestamps and scheduled reports will use this timezone"
+    },
+    {
+      "label": "Default Date Range",
+      "placeholder": "Last 30 Days",
+      "hint": "The period pre-selected when you open any dashboard view"
+    },
+    {
+      "label": "Language",
+      "placeholder": "English — United States",
+      "hint": "Interface language for menus, labels, and system messages"
+    }
+  ],
+  "appearance-switcher": [
+    {
+      "key": "light",
+      "label": "Light",
+      "desc": "Crisp white background with blue accents; ideal for bright office environments"
+    },
+    {
+      "key": "dark",
+      "label": "Dark",
+      "desc": "Deep slate canvas with softened contrast; easier on the eyes in low-light settings"
+    },
+    {
+      "key": "system",
+      "label": "System",
+      "desc": "Automatically follows your operating system's light or dark mode setting"
+    }
+  ],
+  "data-management": [
+    {
+      "title": "Export All Data",
+      "desc": "Download a full JSON or CSV archive of your metrics, reports, and transaction history"
+    },
+    {
+      "title": "Backup Workspace",
+      "desc": "Create a point-in-time snapshot of your workspace configuration and store it in your report-exports bucket"
+    },
+    {
+      "title": "Delete Account",
+      "desc": "Permanently remove your account, all workspace data, and cancel any active subscriptions — this action is irreversible"
+    }
+  ]
+}
